@@ -1,0 +1,216 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Seafoam — primary green, anchored to logo #2dad86 */
+  --color-seafoam-50: #f0fbf6;
+  --color-seafoam-100: #d5f3e7;
+  --color-seafoam-200: #aee7d0;
+  --color-seafoam-300: #78d5b2;
+  --color-seafoam-400: #45bf93;
+  --color-seafoam-500: #2dad86;
+  --color-seafoam-600: #208c6b;
+  --color-seafoam-700: #1a7058;
+  --color-seafoam-800: #175a47;
+  --color-seafoam-900: #144a3b;
+  --color-seafoam-950: #092921;
+
+  /* Gold — warm taupe-gold, anchored to logo #c9a46c */
+  --color-gold-50: #fbf8f1;
+  --color-gold-100: #f5edda;
+  --color-gold-200: #ebd9b4;
+  --color-gold-300: #dfc088;
+  --color-gold-400: #d4a966;
+  --color-gold-500: #c9a46c;
+  --color-gold-600: #b08a52;
+  --color-gold-700: #937042;
+  --color-gold-800: #785b38;
+  --color-gold-900: #634b30;
+  --color-gold-950: #372818;
+
+  /* Neutral brand colors */
+  --color-cream: #faf8f3;
+  --color-bark: #2c1810;
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #faf8f3;
+  --foreground: #2c1810;
+  --card: #ffffff;
+  --card-foreground: #2c1810;
+  --popover: #ffffff;
+  --popover-foreground: #2c1810;
+  --primary: #208c6b;
+  --primary-foreground: #ffffff;
+  --secondary: #f0fbf6;
+  --secondary-foreground: #144a3b;
+  --muted: #f0fbf6;
+  --muted-foreground: #1a7058;
+  --accent: #c9a46c;
+  --accent-foreground: #372818;
+  --destructive: #dc2626;
+  --border: #d5f3e7;
+  --input: #d5f3e7;
+  --ring: #2dad86;
+  --sidebar: #faf8f3;
+  --sidebar-foreground: #2c1810;
+  --sidebar-primary: #208c6b;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f0fbf6;
+  --sidebar-accent-foreground: #144a3b;
+  --sidebar-border: #d5f3e7;
+  --sidebar-ring: #2dad86;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans), 'Outfit', system-ui, sans-serif;
+  }
+}
+
+/* Organic blob shapes */
+.blob-1 {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+.blob-2 {
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+/* Paw print pattern */
+.paw-pattern {
+  background-image: radial-gradient(circle, rgba(45, 173, 134, 0.04) 8px, transparent 8px);
+  background-size: 60px 60px;
+}
+
+/* Gentle float animation */
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+.float-slow { animation: gentleFloat 6s ease-in-out infinite; }
+.float-delayed { animation: gentleFloat 6s ease-in-out 2s infinite; }
+
+/* Staggered fade-in */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
+}
+.fade-up-1 { animation-delay: 0.1s; }
+.fade-up-2 { animation-delay: 0.25s; }
+.fade-up-3 { animation-delay: 0.4s; }
+.fade-up-4 { animation-delay: 0.55s; }
+.fade-up-5 { animation-delay: 0.7s; }
+
+/* Warm gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #1a7058, #2dad86, #c9a46c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility text-gradient {
+  background: linear-gradient(135deg, #1a7058, #2dad86, #c9a46c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(32, 140, 107, 0.12);
+}
+
+/* Warm noise overlay */
+.noise-overlay {
+  position: relative;
+}
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Pill button style */
+.btn-pill {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn-pill:hover {
+  transform: scale(1.05);
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 25s linear infinite;
+}
+
+/* Testimonial quote decoration */
+.testimonial-card {
+  position: relative;
+}
+.testimonial-card::before {
+  content: '\201C';
+  font-family: var(--font-display), 'DM Serif Display', Georgia, serif;
+  font-size: 6rem;
+  line-height: 1;
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  color: rgba(45, 173, 134, 0.12);
+}

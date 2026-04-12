@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="225.82 0 721.91 302.16">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        letter-spacing: 0em;
+      }
+
+      .cls-6 {
+        fill: #2bad86;
+        font-family: Engagement-Regular, Engagement;
+        font-size: 302.16px;
+      }
+
+      .cls-7 {
+        letter-spacing: -.05em;
+      }
+
+      .cls-8 {
+        letter-spacing: -.03em;
+      }
+    </style>
+  </defs>
+  <text class="cls-6" transform="translate(225.82 261.92)"><tspan class="cls-8" x="0" y="0">P</tspan><tspan class="cls-3" x="173.65" y="0">et </tspan><tspan class="cls-7" x="351.74" y="0">C</tspan><tspan class="cls-1" x="503.7" y="0">are</tspan></text>
+</svg>

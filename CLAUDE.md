@@ -1,0 +1,6 @@
+- Use kebab-case for all file names (e.g. `user-profile.tsx`, not `UserProfile.tsx`)
+- No barrel files — import directly from source files, never re-export via `index.ts`
+- Comments explain "why", not "what" — skip comments that restate the code
+- Prefer clarity over brevity in naming — no abbreviations except: `id`, `url`, `api`, `props`, `params`, `env`
+- Always use auto-generated Payload types from `@/payload-types` — never recreate them manually
+- Block configs go in `src/blocks/{name}/config.ts`, UI components go in `src/components/{name}.tsx` — never put React components in `src/blocks/`
