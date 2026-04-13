@@ -85,6 +85,7 @@ export default async function OgImage() {
         {/* Full logo — large */}
         <img
           src={logoDataUri}
+          alt="Pet Care"
           width={700}
           height={172}
           style={{ marginBottom: 28 }}
