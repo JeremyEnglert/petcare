@@ -14,6 +14,7 @@
     "video:render": "remotion render remotion/index.ts GrandOpening out/grand-opening.mp4"
   },
   "dependencies": {
+    "@next/third-parties": "^16.2.3",
     "@payloadcms/db-mongodb": "^3.80.0",
     "@payloadcms/live-preview-react": "^3.80.0",
     "@payloadcms/next": "^3.80.0",

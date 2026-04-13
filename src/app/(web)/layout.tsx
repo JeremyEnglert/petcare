@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Outfit } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
@@ -39,6 +40,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <GoogleAnalytics gaId="G-4KPK43B46H" />
       <body
         className={`${dmSerifDisplay.variable} ${outfit.variable} antialiased bg-cream text-bark overflow-x-hidden`}
       >
