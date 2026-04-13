@@ -30,6 +30,7 @@ export default function Header({
             alt="Pet Care"
             width={260}
             height={100}
+            className="w-[180px] md:w-[260px] h-auto"
             priority
           />
         </Link>

@@ -169,7 +169,7 @@ Service pages are orphaned from the homepage. Google discovers pages through int
 
 ### Phase 3 — Quick Wins
 
-- [ ] Fix homepage title grammar
+- [x] Fix homepage title grammar
 - [ ] Fix OG URL for homepage (`/home` → `/`)
 - [ ] Fix "affordablewellness" typo
 

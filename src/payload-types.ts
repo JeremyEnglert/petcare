@@ -1229,7 +1229,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface ClinicInfo {
   id: string;
   /**
-   * Display format, e.g. "(555) 012-3456"
+   * Display format, e.g. "(520) 555-0123"
    */
   phone?: string | null;
   email?: string | null;
@@ -1248,19 +1248,85 @@ export interface ClinicInfo {
     instagram?: string | null;
     tiktok?: string | null;
   };
-  hours?:
-    | {
-        /**
-         * e.g. "Mon–Fri" or "Saturday"
-         */
-        days: string;
-        /**
-         * e.g. "8am – 6pm" or "Closed"
-         */
-        hours: string;
-        id?: string | null;
-      }[]
-    | null;
+  hours?: {
+    monday?: {
+      closed?: boolean | null;
+      /**
+       * 24h format (e.g. 08:00)
+       */
+      open?: string | null;
+      /**
+       * 24h format (e.g. 18:00)
+       */
+      close?: string | null;
+    };
+    tuesday?: {
+      closed?: boolean | null;
+      /**
+       * 24h format (e.g. 08:00)
+       */
+      open?: string | null;
+      /**
+       * 24h format (e.g. 18:00)
+       */
+      close?: string | null;
+    };
+    wednesday?: {
+      closed?: boolean | null;
+      /**
+       * 24h format (e.g. 08:00)
+       */
+      open?: string | null;
+      /**
+       * 24h format (e.g. 18:00)
+       */
+      close?: string | null;
+    };
+    thursday?: {
+      closed?: boolean | null;
+      /**
+       * 24h format (e.g. 08:00)
+       */
+      open?: string | null;
+      /**
+       * 24h format (e.g. 18:00)
+       */
+      close?: string | null;
+    };
+    friday?: {
+      closed?: boolean | null;
+      /**
+       * 24h format (e.g. 08:00)
+       */
+      open?: string | null;
+      /**
+       * 24h format (e.g. 18:00)
+       */
+      close?: string | null;
+    };
+    saturday?: {
+      closed?: boolean | null;
+      /**
+       * 24h format (e.g. 08:00)
+       */
+      open?: string | null;
+      /**
+       * 24h format (e.g. 18:00)
+       */
+      close?: string | null;
+    };
+    sunday?: {
+      closed?: boolean | null;
+      /**
+       * 24h format (e.g. 08:00)
+       */
+      open?: string | null;
+      /**
+       * 24h format (e.g. 18:00)
+       */
+      close?: string | null;
+    };
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1311,9 +1377,55 @@ export interface ClinicInfoSelect<T extends boolean = true> {
   hours?:
     | T
     | {
-        days?: T;
-        hours?: T;
-        id?: T;
+        monday?:
+          | T
+          | {
+              closed?: T;
+              open?: T;
+              close?: T;
+            };
+        tuesday?:
+          | T
+          | {
+              closed?: T;
+              open?: T;
+              close?: T;
+            };
+        wednesday?:
+          | T
+          | {
+              closed?: T;
+              open?: T;
+              close?: T;
+            };
+        thursday?:
+          | T
+          | {
+              closed?: T;
+              open?: T;
+              close?: T;
+            };
+        friday?:
+          | T
+          | {
+              closed?: T;
+              open?: T;
+              close?: T;
+            };
+        saturday?:
+          | T
+          | {
+              closed?: T;
+              open?: T;
+              close?: T;
+            };
+        sunday?:
+          | T
+          | {
+              closed?: T;
+              open?: T;
+              close?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;

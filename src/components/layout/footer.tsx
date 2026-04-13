@@ -1,8 +1,10 @@
 import type { ClinicInfo } from '@/payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
+import { getDisplayHours } from '@/utilities/format-hours'
 
 export default function Footer({ clinicInfo }: { clinicInfo: ClinicInfo }) {
+  const displayHours = getDisplayHours(clinicInfo.hours)
   const currentYear = new Date().getFullYear()
 
   return (
@@ -21,7 +23,7 @@ export default function Footer({ clinicInfo }: { clinicInfo: ClinicInfo }) {
                 className="brightness-0 invert h-24 w-auto"
               />
             </Link>
-            <p className="text-seafoam-300 text-sm leading-relaxed">
+            <p className="text-seafoam-300 text-sm leading-relaxed mt-4">
               Locally owned veterinary clinic providing affordable, compassionate care for your pets.
             </p>
           </div>
@@ -30,7 +32,7 @@ export default function Footer({ clinicInfo }: { clinicInfo: ClinicInfo }) {
           <div className="lg:col-span-3 lg:col-start-7">
             <h4 className="font-semibold text-xs uppercase tracking-[0.15em] text-gold-400 mb-5 gold-rule">Hours</h4>
             <ul className="space-y-2.5 text-sm text-seafoam-300">
-              {clinicInfo.hours?.map((entry, i) => (
+              {displayHours.map((entry, i) => (
                 <li key={i} className="flex justify-between">
                   <span>{entry.days}</span>
                   <span className="text-seafoam-200/80">{entry.hours}</span>

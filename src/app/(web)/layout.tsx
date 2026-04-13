@@ -9,6 +9,7 @@ import { siteConfig } from "@/utilities/site-config";
 import { mergeOpenGraph } from "@/utilities/merge-open-graph";
 import { getClinicInfo } from "@/utilities/get-clinic-info";
 import { getMenu } from "@/utilities/get-menu";
+import { getSchemaHours } from "@/utilities/format-hours";
 
 const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-display",
@@ -65,13 +66,10 @@ export default async function RootLayout({
                   addressCountry: 'US',
                 },
               }),
-              ...(clinicInfo.hours && clinicInfo.hours.length > 0 && {
-                openingHoursSpecification: clinicInfo.hours.map((entry) => ({
-                  '@type': 'OpeningHoursSpecification',
-                  dayOfWeek: entry.days,
-                  opens: entry.hours,
-                })),
-              }),
+              ...(() => {
+                const schemaHours = getSchemaHours(clinicInfo.hours)
+                return schemaHours.length > 0 ? { openingHoursSpecification: schemaHours } : {}
+              })(),
               ...(clinicInfo.socialMedia && {
                 sameAs: [
                   clinicInfo.socialMedia.facebook,

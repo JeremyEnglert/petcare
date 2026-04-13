@@ -1,4 +1,56 @@
-import type { GlobalConfig } from 'payload'
+import type { GlobalConfig, Field } from 'payload'
+
+const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const
+
+function dayFields(day: typeof DAYS[number]): Field {
+  const label = day.charAt(0).toUpperCase() + day.slice(1)
+  return {
+    name: day,
+    type: 'group',
+    label,
+    admin: {
+      hideGutter: true,
+    },
+    fields: [
+      {
+        type: 'row',
+        fields: [
+          {
+            name: 'closed',
+            type: 'checkbox',
+            label: 'Closed',
+            defaultValue: false,
+            admin: {
+              width: '20%',
+            },
+          },
+          {
+            name: 'open',
+            type: 'text',
+            label: 'Open',
+            admin: {
+              placeholder: '08:00',
+              description: '24h format (e.g. 08:00)',
+              width: '40%',
+              condition: (data, siblingData) => !siblingData?.closed,
+            },
+          },
+          {
+            name: 'close',
+            type: 'text',
+            label: 'Close',
+            admin: {
+              placeholder: '18:00',
+              description: '24h format (e.g. 18:00)',
+              width: '40%',
+              condition: (data, siblingData) => !siblingData?.closed,
+            },
+          },
+        ],
+      },
+    ],
+  }
+}
 
 export const ClinicInfo: GlobalConfig = {
   slug: 'clinic-info',
@@ -12,7 +64,7 @@ export const ClinicInfo: GlobalConfig = {
       type: 'text',
       label: 'Phone Number',
       admin: {
-        description: 'Display format, e.g. "(555) 012-3456"',
+        description: 'Display format, e.g. "(520) 555-0123"',
       },
     },
     {
@@ -84,39 +136,9 @@ export const ClinicInfo: GlobalConfig = {
     },
     {
       name: 'hours',
-      type: 'array',
+      type: 'group',
       label: 'Hours of Operation',
-      admin: {
-        components: {
-          RowLabel: {
-            path: '@/components/row-label',
-            clientProps: {
-              fieldName: 'days',
-              fallback: 'Hour',
-            },
-          },
-        },
-      },
-      fields: [
-        {
-          name: 'days',
-          type: 'text',
-          label: 'Days',
-          required: true,
-          admin: {
-            description: 'e.g. "Mon–Fri" or "Saturday"',
-          },
-        },
-        {
-          name: 'hours',
-          type: 'text',
-          label: 'Hours',
-          required: true,
-          admin: {
-            description: 'e.g. "8am – 6pm" or "Closed"',
-          },
-        },
-      ],
+      fields: DAYS.map(dayFields),
     },
   ],
 }
