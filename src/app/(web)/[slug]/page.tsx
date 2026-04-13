@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { generateMeta } from '@/utilities/generate-meta'
 import configPromise from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
@@ -44,7 +45,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   })
 
   if (!page) {
-    return null // Return null or a 404 component if page is not found
+    notFound()
   }
 
   const contentBlocks = Array.isArray(page.content) ? page.content : []
