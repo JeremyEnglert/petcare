@@ -65,7 +65,7 @@ export const generateMeta = async (args: {
           ]
         : undefined,
       title: typeof title === 'string' ? title : title.absolute,
-      url: slug || '/',
+      url: slug && slug !== 'home' ? slug : '/',
     }),
     title,
     alternates: {

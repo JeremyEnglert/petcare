@@ -162,7 +162,7 @@ Service pages are orphaned from the homepage. Google discovers pages through int
 - [ ] Add OG images to service page metadata
 - [ ] Add internal links from homepage to service detail pages
 - [ ] Add alt text to all content images in CMS
-- [ ] Fix schema opening hours format (individual days, `HH:MM`, add `closes`)
+- [x] Fix schema opening hours format (individual days, `HH:MM`, add `closes`)
 - [ ] Remove placeholder `sameAs` values or add real social URLs
 - [ ] Add real phone number to CMS clinic info
 - [ ] Replace hardcoded `(555)` phone in service page schema with dynamic value
@@ -170,7 +170,7 @@ Service pages are orphaned from the homepage. Google discovers pages through int
 ### Phase 3 — Quick Wins
 
 - [x] Fix homepage title grammar
-- [ ] Fix OG URL for homepage (`/home` → `/`)
+- [x] Fix OG URL for homepage (`/home` → `/`)
 - [ ] Fix "affordablewellness" typo
 
 ### Phase 4 — Long-Term

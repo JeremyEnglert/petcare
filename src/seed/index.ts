@@ -190,11 +190,15 @@ export async function seed(payload: Payload) {
         state: 'AZ',
         zip: '85712',
       },
-      hours: [
-        { days: 'Mon–Fri', hours: '8am – 6pm' },
-        { days: 'Saturday', hours: '9am – 3pm' },
-        { days: 'Sunday', hours: 'Closed' },
-      ],
+      hours: {
+        monday: { closed: false, open: '08:00', close: '18:00' },
+        tuesday: { closed: false, open: '08:00', close: '18:00' },
+        wednesday: { closed: false, open: '08:00', close: '18:00' },
+        thursday: { closed: false, open: '08:00', close: '18:00' },
+        friday: { closed: false, open: '08:00', close: '18:00' },
+        saturday: { closed: false, open: '09:00', close: '15:00' },
+        sunday: { closed: true },
+      },
     },
   })
   console.log('Seeded clinic info')
