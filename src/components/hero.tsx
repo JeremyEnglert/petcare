@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { Media, ClinicInfo } from '@/payload-types'
 import type { ReactNode } from 'react'
 
@@ -51,7 +52,7 @@ export function Hero({ badge, title, subtitle, heroImage, floatingBadge, showPri
           </h1>
 
           {subtitle && (
-            <p className="fade-up fade-up-3 text-lg text-seafoam-800/60 leading-relaxed mb-10 max-w-md">
+            <p className="fade-up fade-up-3 text-lg text-seafoam-700 leading-relaxed mb-10 max-w-md">
               {subtitle}
             </p>
           )}
@@ -90,7 +91,7 @@ export function Hero({ badge, title, subtitle, heroImage, floatingBadge, showPri
                 Opening in May
               </div>
               {clinicInfo?.address && (clinicInfo.address.street || clinicInfo.address.city) && (
-                <span className="text-sm text-seafoam-800/60">
+                <span className="text-sm text-seafoam-700">
                   {[clinicInfo.address.street, clinicInfo.address.city, clinicInfo.address.state].filter(Boolean).join(', ')}
                   {clinicInfo.address.zip && ` ${clinicInfo.address.zip}`}
                 </span>
@@ -114,7 +115,7 @@ export function Hero({ badge, title, subtitle, heroImage, floatingBadge, showPri
                     </svg>
                   ))}
                 </div>
-                <p className="text-sm text-seafoam-700/60 mt-0.5">{trustSignalText}</p>
+                <p className="text-sm text-seafoam-600 mt-0.5">{trustSignalText}</p>
               </div>
             </div>
           )}
@@ -125,10 +126,12 @@ export function Hero({ badge, title, subtitle, heroImage, floatingBadge, showPri
           <div className="relative w-full aspect-[4/5] max-w-md mx-auto">
             <div className="absolute inset-0 bg-gradient-to-br from-seafoam-200 to-seafoam-300 blob-1 overflow-hidden">
               {heroImage && typeof heroImage === 'object' && heroImage.url ? (
-                <img
+                <Image
                   src={heroImage.url}
                   alt={heroImage.alt || ''}
-                  className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-60"
+                  fill
+                  className="object-cover mix-blend-multiply opacity-60"
+                  priority
                 />
               ) : (
                 <div className="absolute inset-0 bg-seafoam-300" />

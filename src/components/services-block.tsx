@@ -41,7 +41,7 @@ export function ServicesBlock({
             <h2 className="font-display text-4xl sm:text-5xl text-seafoam-900 mb-4">{heading}</h2>
           )}
           {description && (
-            <p className="text-seafoam-700/60 text-lg leading-relaxed">{description}</p>
+            <p className="text-seafoam-700 text-lg leading-relaxed">{description}</p>
           )}
         </div>
 
@@ -57,17 +57,27 @@ export function ServicesBlock({
               </div>
               <h3 className="font-display text-xl text-seafoam-900 mb-2">{service.title}</h3>
               {service.description && (
-                <p className="text-seafoam-700/60 text-sm leading-relaxed mb-4">{service.description}</p>
+                <p className="text-seafoam-600 text-sm leading-relaxed mb-4">{service.description}</p>
               )}
               <div className="mt-auto flex items-end justify-between">
-                {service.startingPrice && (
-                  <div>
-                    <p className="text-gold-600 font-semibold text-sm">Starting at ${service.startingPrice}</p>
-                    {service.competitorPrice && (
-                      <p className="text-bark/40 text-xs mt-0.5">Other clinics charge ${service.competitorPrice}</p>
-                    )}
-                  </div>
-                )}
+                {(() => {
+                  const tiers = service.priceTiers
+                  const lowestPrice = tiers && tiers.length > 0
+                    ? Math.min(...tiers.map((t) => t.price))
+                    : service.startingPrice
+                  const lowestCompetitor = tiers && tiers.length > 0
+                    ? Math.min(...tiers.filter((t) => t.competitorPrice).map((t) => t.competitorPrice!))
+                    : service.competitorPrice
+
+                  return lowestPrice ? (
+                    <div>
+                      <p className="text-gold-600 font-semibold text-sm">Starting at ${lowestPrice}</p>
+                      {lowestCompetitor && (
+                        <p className="text-seafoam-600 text-xs mt-0.5">Other clinics charge ${lowestCompetitor}</p>
+                      )}
+                    </div>
+                  ) : null
+                })()}
                 <span className="inline-flex items-center gap-1 text-seafoam-600 text-sm font-semibold group-hover:gap-2 transition-all">
                   Details
                   <ArrowRight className="w-4 h-4" />
@@ -81,7 +91,7 @@ export function ServicesBlock({
               <div className="relative z-10">
                 {ctaHeading && <h3 className="font-display text-xl mb-2">{ctaHeading}</h3>}
                 {ctaDescription && (
-                  <p className="text-seafoam-100/70 text-sm leading-relaxed mb-8">{ctaDescription}</p>
+                  <p className="text-seafoam-100 text-sm leading-relaxed mb-8">{ctaDescription}</p>
                 )}
               </div>
               {ctaButtonLabel && ctaButtonLink && (

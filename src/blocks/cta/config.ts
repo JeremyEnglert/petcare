@@ -22,9 +22,29 @@ export const CtaBlock: Block = {
       label: 'Description',
     },
     {
+      name: 'showSocialIcons',
+      type: 'checkbox',
+      label: 'Show Social Icons',
+      defaultValue: false,
+      admin: {
+        description: 'Display social media icons from Clinic Info below the buttons',
+      },
+    },
+    {
       name: 'buttons',
       type: 'array',
       label: 'Buttons',
+      admin: {
+        components: {
+          RowLabel: {
+            path: '@/components/row-label',
+            clientProps: {
+              fieldName: 'label',
+              fallback: 'Button',
+            },
+          },
+        },
+      },
       fields: [
         {
           name: 'label',

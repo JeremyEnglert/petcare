@@ -61,6 +61,28 @@ export const ClinicInfo: GlobalConfig = {
       ],
     },
     {
+      name: 'socialMedia',
+      type: 'group',
+      label: 'Social Media',
+      fields: [
+        {
+          name: 'facebook',
+          type: 'text',
+          label: 'Facebook URL',
+        },
+        {
+          name: 'instagram',
+          type: 'text',
+          label: 'Instagram URL',
+        },
+        {
+          name: 'tiktok',
+          type: 'text',
+          label: 'TikTok URL',
+        },
+      ],
+    },
+    {
       name: 'hours',
       type: 'array',
       label: 'Hours of Operation',

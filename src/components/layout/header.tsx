@@ -1,22 +1,28 @@
 "use client"
 
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import type { Menu } from "@/payload-types"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 
-const navItems = [
-  { title: "Services", href: "/#services" },
-  { title: "About", href: "/#about" },
-  { title: "Pricing", href: "/#pricing" },
-  { title: "Reviews", href: "/#reviews" },
-]
-
-export default function Header({ bookingUrl }: { bookingUrl?: string | null }) {
+export default function Header({
+  bookingUrl,
+  menuItems,
+}: {
+  bookingUrl?: string | null
+  menuItems?: Menu['items']
+}) {
   const [open, setOpen] = useState(false)
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 bg-cream/80 backdrop-blur-lg border-b border-seafoam-100/50">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-seafoam-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-full focus:text-sm focus:font-semibold"
+      >
+        Skip to content
+      </a>
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center group">
           <Image
@@ -29,13 +35,13 @@ export default function Header({ bookingUrl }: { bookingUrl?: string | null }) {
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
+          {menuItems?.map((item) => (
             <a
-              key={item.title}
-              href={item.href}
+              key={item.id}
+              href={item.url}
               className="text-sm font-medium text-seafoam-800/70 hover:text-seafoam-700 transition-colors"
             >
-              {item.title}
+              {item.label}
             </a>
           ))}
           {bookingUrl ? (
@@ -86,14 +92,14 @@ export default function Header({ bookingUrl }: { bookingUrl?: string | null }) {
 
               <nav className="flex-1 overflow-y-auto px-6">
                 <div className="flex flex-col space-y-1">
-                  {navItems.map((item) => (
+                  {menuItems?.map((item) => (
                     <a
-                      key={item.title}
-                      href={item.href}
+                      key={item.id}
+                      href={item.url}
                       className="py-3 text-base font-medium text-seafoam-800 hover:text-seafoam-600 transition-colors"
                       onClick={() => setOpen(false)}
                     >
-                      {item.title}
+                      {item.label}
                     </a>
                   ))}
                 </div>

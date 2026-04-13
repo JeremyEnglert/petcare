@@ -7,6 +7,7 @@ import { LivePreviewListener } from "@/components/live-preview-listener";
 import { siteConfig } from "@/utilities/site-config";
 import { mergeOpenGraph } from "@/utilities/merge-open-graph";
 import { getClinicInfo } from "@/utilities/get-clinic-info";
+import { getMenu } from "@/utilities/get-menu";
 
 const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-display",
@@ -34,7 +35,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const clinicInfo = await getClinicInfo()
+  const [clinicInfo, menu] = await Promise.all([getClinicInfo(), getMenu()])
 
   return (
     <html lang="en">
@@ -42,7 +43,7 @@ export default async function RootLayout({
         className={`${dmSerifDisplay.variable} ${outfit.variable} antialiased bg-cream text-bark overflow-x-hidden`}
       >
         <LivePreviewListener />
-        <Header bookingUrl={clinicInfo.bookingUrl} />
+        <Header bookingUrl={clinicInfo.bookingUrl} menuItems={menu.items} />
         <main id="main-content">{children}</main>
         <Footer clinicInfo={clinicInfo} />
       </body>

@@ -43,7 +43,7 @@ export function TestimonialsBlock({ eyebrow, heading, testimonials }: Testimonia
                   ))}
                 </div>
               )}
-              <p className="text-white/70 text-sm leading-relaxed mb-6">
+              <p className="text-white/85 text-sm leading-relaxed mb-6">
                 &ldquo;{testimonial.quote}&rdquo;
               </p>
               <div className="flex items-center gap-3">
@@ -53,7 +53,7 @@ export function TestimonialsBlock({ eyebrow, heading, testimonials }: Testimonia
                 <div>
                   <p className="text-sm font-medium">{testimonial.authorName}</p>
                   {testimonial.authorDescription && (
-                    <p className="text-xs text-white/40">{testimonial.authorDescription}</p>
+                    <p className="text-xs text-white/60">{testimonial.authorDescription}</p>
                   )}
                 </div>
               </div>

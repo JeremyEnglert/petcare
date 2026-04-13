@@ -20,6 +20,7 @@ import { Posts } from './collections/Posts'
 import { Services } from './collections/Services'
 import { Testimonials } from './collections/Testimonials'
 import { ClinicInfo } from './globals/clinic-info'
+import { Menu } from './globals/menu'
 
 const filename = fileURLToPath(import.meta.url) 
 const dirname = path.dirname(filename)
@@ -40,7 +41,7 @@ export default buildConfig({
     ],
   }),
   collections: [Pages, Posts, Services, Testimonials, Users, Media],
-  globals: [ClinicInfo],
+  globals: [ClinicInfo, Menu],
   plugins: [
     s3Storage({
       collections: {

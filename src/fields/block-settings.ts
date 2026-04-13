@@ -30,6 +30,14 @@ export function blockFields(contentFields: Field[], extraSettingsFields?: Field[
               },
               fields: [
                 {
+                  name: 'anchorId',
+                  type: 'text',
+                  label: 'Anchor ID',
+                  admin: {
+                    description: 'Optional ID for linking directly to this block (e.g. "pricing" creates #pricing)',
+                  },
+                },
+                {
                   type: 'row',
                   fields: [
                     {

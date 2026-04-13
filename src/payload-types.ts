@@ -99,9 +99,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'clinic-info': ClinicInfo;
+    menu: Menu;
   };
   globalsSelect: {
     'clinic-info': ClinicInfoSelect<false> | ClinicInfoSelect<true>;
+    menu: MenuSelect<false> | MenuSelect<true>;
   };
   locale: null;
   widgets: {
@@ -172,6 +174,10 @@ export interface Page {
              */
             trustSignalText?: string | null;
             blockSettings?: {
+              /**
+               * Optional ID for linking directly to this block (e.g. "pricing" creates #pricing)
+               */
+              anchorId?: string | null;
               spacingTop?: ('0' | '8' | '16' | '24' | '32') | null;
               spacingBottom?: ('0' | '8' | '16' | '24' | '32') | null;
             };
@@ -185,6 +191,10 @@ export interface Page {
              */
             excludeServices?: (string | Service)[] | null;
             blockSettings?: {
+              /**
+               * Optional ID for linking directly to this block (e.g. "pricing" creates #pricing)
+               */
+              anchorId?: string | null;
               spacingTop?: ('0' | '8' | '16' | '24' | '32') | null;
               spacingBottom?: ('0' | '8' | '16' | '24' | '32') | null;
             };
@@ -206,6 +216,10 @@ export interface Page {
             ctaButtonLabel?: string | null;
             ctaButtonLink?: string | null;
             blockSettings?: {
+              /**
+               * Optional ID for linking directly to this block (e.g. "pricing" creates #pricing)
+               */
+              anchorId?: string | null;
               spacingTop?: ('0' | '8' | '16' | '24' | '32') | null;
               spacingBottom?: ('0' | '8' | '16' | '24' | '32') | null;
             };
@@ -254,6 +268,10 @@ export interface Page {
                 }[]
               | null;
             blockSettings?: {
+              /**
+               * Optional ID for linking directly to this block (e.g. "pricing" creates #pricing)
+               */
+              anchorId?: string | null;
               spacingTop?: ('0' | '8' | '16' | '24' | '32') | null;
               spacingBottom?: ('0' | '8' | '16' | '24' | '32') | null;
             };
@@ -269,10 +287,20 @@ export interface Page {
             heading?: string | null;
             description?: string | null;
             /**
-             * Select services to display with their prices
+             * Each item is one row in the pricing table. Pick a service and optionally a specific tier.
              */
-            services?: (string | Service)[] | null;
+            pricingItems?:
+              | {
+                  service: string | Service;
+                  tierLabel?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
             blockSettings?: {
+              /**
+               * Optional ID for linking directly to this block (e.g. "pricing" creates #pricing)
+               */
+              anchorId?: string | null;
               spacingTop?: ('0' | '8' | '16' | '24' | '32') | null;
               spacingBottom?: ('0' | '8' | '16' | '24' | '32') | null;
             };
@@ -288,6 +316,10 @@ export interface Page {
             heading?: string | null;
             testimonials?: (string | Testimonial)[] | null;
             blockSettings?: {
+              /**
+               * Optional ID for linking directly to this block (e.g. "pricing" creates #pricing)
+               */
+              anchorId?: string | null;
               spacingTop?: ('0' | '8' | '16' | '24' | '32') | null;
               spacingBottom?: ('0' | '8' | '16' | '24' | '32') | null;
             };
@@ -298,6 +330,10 @@ export interface Page {
         | {
             heading?: string | null;
             description?: string | null;
+            /**
+             * Display social media icons from Clinic Info below the buttons
+             */
+            showSocialIcons?: boolean | null;
             buttons?:
               | {
                   label: string;
@@ -307,12 +343,85 @@ export interface Page {
                 }[]
               | null;
             blockSettings?: {
+              /**
+               * Optional ID for linking directly to this block (e.g. "pricing" creates #pricing)
+               */
+              anchorId?: string | null;
               spacingTop?: ('0' | '8' | '16' | '24' | '32') | null;
               spacingBottom?: ('0' | '8' | '16' | '24' | '32') | null;
             };
             id?: string | null;
             blockName?: string | null;
             blockType: 'cta';
+          }
+        | {
+            /**
+             * Choose a visual style for this promotion
+             */
+            variant: 'banner' | 'card' | 'minimal';
+            /**
+             * Small label text, e.g. "Grand Opening Special" or "Limited Time"
+             */
+            badge?: string | null;
+            heading: string;
+            description?: string | null;
+            /**
+             * The promotional price to highlight, e.g. "$18"
+             */
+            price: string;
+            /**
+             * Text below the price, e.g. "per vaccine"
+             */
+            priceLabel?: string | null;
+            /**
+             * Crossed-out comparison price, e.g. "$35+"
+             */
+            originalPrice?: string | null;
+            /**
+             * Links to the booking URL from Clinic Info
+             */
+            ctaLabel?: string | null;
+            /**
+             * Small text at the bottom, e.g. "No appointment needed — walk-ins welcome"
+             */
+            footnote?: string | null;
+            blockSettings?: {
+              /**
+               * Optional ID for linking directly to this block (e.g. "pricing" creates #pricing)
+               */
+              anchorId?: string | null;
+              spacingTop?: ('0' | '8' | '16' | '24' | '32') | null;
+              spacingBottom?: ('0' | '8' | '16' | '24' | '32') | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'promotion';
+          }
+        | {
+            /**
+             * Small text above heading, e.g. "Our Location"
+             */
+            eyebrow?: string | null;
+            /**
+             * Wrap text in {{double braces}} to apply the gradient style.
+             */
+            heading?: string | null;
+            description?: string | null;
+            /**
+             * Optional badge text, e.g. "Grand Opening May 2026". Leave blank to hide.
+             */
+            grandOpeningLabel?: string | null;
+            blockSettings?: {
+              /**
+               * Optional ID for linking directly to this block (e.g. "pricing" creates #pricing)
+               */
+              anchorId?: string | null;
+              spacingTop?: ('0' | '8' | '16' | '24' | '32') | null;
+              spacingBottom?: ('0' | '8' | '16' | '24' | '32') | null;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'location';
           }
       )[]
     | null;
@@ -373,14 +482,6 @@ export interface Service {
    * Detailed description shown on the service detail page
    */
   longDescription?: string | null;
-  /**
-   * Price in dollars (whole number, no $ sign). e.g. 35, 150
-   */
-  startingPrice?: number | null;
-  /**
-   * Average competitor price in dollars (whole number, no $ sign). e.g. 60, 250
-   */
-  competitorPrice?: number | null;
   icon?: ('heart' | 'syringe' | 'smile' | 'scissors' | 'monitor' | 'chip') | null;
   /**
    * Bullet points shown on the service detail page
@@ -389,6 +490,34 @@ export interface Service {
     | {
         feature: string;
         description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Default price in dollars (whole number, no $ sign). Used when no price tiers are set.
+   */
+  startingPrice?: number | null;
+  /**
+   * Average competitor price in dollars (whole number, no $ sign). e.g. 60, 250
+   */
+  competitorPrice?: number | null;
+  /**
+   * Optional per-animal or per-size pricing. When tiers exist, they display instead of the single starting price.
+   */
+  priceTiers?:
+    | {
+        /**
+         * e.g. Dogs, Cats, Small Dogs, Large Dogs
+         */
+        label: string;
+        /**
+         * Price in dollars (whole number, no $ sign)
+         */
+        price: number;
+        /**
+         * Competitor price for this tier
+         */
+        competitorPrice?: number | null;
         id?: string | null;
       }[]
     | null;
@@ -700,6 +829,7 @@ export interface PagesSelect<T extends boolean = true> {
               blockSettings?:
                 | T
                 | {
+                    anchorId?: T;
                     spacingTop?: T;
                     spacingBottom?: T;
                   };
@@ -713,6 +843,7 @@ export interface PagesSelect<T extends boolean = true> {
               blockSettings?:
                 | T
                 | {
+                    anchorId?: T;
                     spacingTop?: T;
                     spacingBottom?: T;
                   };
@@ -734,6 +865,7 @@ export interface PagesSelect<T extends boolean = true> {
               blockSettings?:
                 | T
                 | {
+                    anchorId?: T;
                     spacingTop?: T;
                     spacingBottom?: T;
                   };
@@ -762,6 +894,7 @@ export interface PagesSelect<T extends boolean = true> {
               blockSettings?:
                 | T
                 | {
+                    anchorId?: T;
                     spacingTop?: T;
                     spacingBottom?: T;
                   };
@@ -774,10 +907,17 @@ export interface PagesSelect<T extends boolean = true> {
               eyebrow?: T;
               heading?: T;
               description?: T;
-              services?: T;
+              pricingItems?:
+                | T
+                | {
+                    service?: T;
+                    tierLabel?: T;
+                    id?: T;
+                  };
               blockSettings?:
                 | T
                 | {
+                    anchorId?: T;
                     spacingTop?: T;
                     spacingBottom?: T;
                   };
@@ -793,6 +933,7 @@ export interface PagesSelect<T extends boolean = true> {
               blockSettings?:
                 | T
                 | {
+                    anchorId?: T;
                     spacingTop?: T;
                     spacingBottom?: T;
                   };
@@ -804,6 +945,7 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               heading?: T;
               description?: T;
+              showSocialIcons?: T;
               buttons?:
                 | T
                 | {
@@ -815,6 +957,46 @@ export interface PagesSelect<T extends boolean = true> {
               blockSettings?:
                 | T
                 | {
+                    anchorId?: T;
+                    spacingTop?: T;
+                    spacingBottom?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        promotion?:
+          | T
+          | {
+              variant?: T;
+              badge?: T;
+              heading?: T;
+              description?: T;
+              price?: T;
+              priceLabel?: T;
+              originalPrice?: T;
+              ctaLabel?: T;
+              footnote?: T;
+              blockSettings?:
+                | T
+                | {
+                    anchorId?: T;
+                    spacingTop?: T;
+                    spacingBottom?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        location?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              description?: T;
+              grandOpeningLabel?: T;
+              blockSettings?:
+                | T
+                | {
+                    anchorId?: T;
                     spacingTop?: T;
                     spacingBottom?: T;
                   };
@@ -869,14 +1051,22 @@ export interface ServicesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   longDescription?: T;
-  startingPrice?: T;
-  competitorPrice?: T;
   icon?: T;
   features?:
     | T
     | {
         feature?: T;
         description?: T;
+        id?: T;
+      };
+  startingPrice?: T;
+  competitorPrice?: T;
+  priceTiers?:
+    | T
+    | {
+        label?: T;
+        price?: T;
+        competitorPrice?: T;
         id?: T;
       };
   seo?:
@@ -1053,6 +1243,11 @@ export interface ClinicInfo {
     state?: string | null;
     zip?: string | null;
   };
+  socialMedia?: {
+    facebook?: string | null;
+    instagram?: string | null;
+    tiktok?: string | null;
+  };
   hours?:
     | {
         /**
@@ -1063,6 +1258,27 @@ export interface ClinicInfo {
          * e.g. "8am – 6pm" or "Closed"
          */
         hours: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Manage the main navigation menu.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu".
+ */
+export interface Menu {
+  id: string;
+  items?:
+    | {
+        label: string;
+        /**
+         * Relative path (e.g. "/#services") or full URL
+         */
+        url: string;
         id?: string | null;
       }[]
     | null;
@@ -1085,11 +1301,34 @@ export interface ClinicInfoSelect<T extends boolean = true> {
         state?: T;
         zip?: T;
       };
+  socialMedia?:
+    | T
+    | {
+        facebook?: T;
+        instagram?: T;
+        tiktok?: T;
+      };
   hours?:
     | T
     | {
         days?: T;
         hours?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu_select".
+ */
+export interface MenuSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        label?: T;
+        url?: T;
         id?: T;
       };
   updatedAt?: T;

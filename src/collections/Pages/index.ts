@@ -13,6 +13,8 @@ import { AboutBlock } from '@/blocks/about/config'
 import { PricingBlock } from '@/blocks/pricing/config'
 import { TestimonialsBlock } from '@/blocks/testimonials/config'
 import { CtaBlock } from '@/blocks/cta/config'
+import { PromotionBlock } from '@/blocks/promotion/config'
+import { LocationBlock } from '@/blocks/location/config'
 import {
   MetaDescriptionField,
   MetaImageField,
@@ -80,6 +82,8 @@ export const Pages: CollectionConfig<'pages'> = {
                 PricingBlock,
                 TestimonialsBlock,
                 CtaBlock,
+                PromotionBlock,
+                LocationBlock,
               ],
               required: false,
               label: false,

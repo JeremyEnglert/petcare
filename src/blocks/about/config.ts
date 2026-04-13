@@ -48,6 +48,17 @@ export const AboutBlock: Block = {
       type: 'array',
       label: 'Stats',
       maxRows: 4,
+      admin: {
+        components: {
+          RowLabel: {
+            path: '@/components/row-label',
+            clientProps: {
+              fieldName: 'label',
+              fallback: 'Stat',
+            },
+          },
+        },
+      },
       fields: [
         {
           name: 'value',

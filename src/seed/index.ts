@@ -26,6 +26,10 @@ const servicesData = [
     longDescription: 'We follow AAHA (American Animal Hospital Association) vaccination guidelines to ensure your pet receives the right vaccines at the right time. We\'ll work with you to create a personalized vaccination schedule based on your pet\'s age, lifestyle, and risk factors.',
     startingPrice: 20,
     competitorPrice: 45,
+    priceTiers: [
+      { label: 'Dogs', price: 25, competitorPrice: 50 },
+      { label: 'Cats', price: 20, competitorPrice: 40 },
+    ],
     icon: 'syringe' as const,
 
     features: [
@@ -62,6 +66,10 @@ const servicesData = [
     longDescription: 'Spaying and neutering is one of the most important decisions you can make for your pet\'s long-term health. Our experienced surgical team performs these procedures daily with meticulous attention to safety and comfort. Every surgery includes pre-operative assessment, safe anesthesia, pain management, and detailed post-op care instructions.',
     startingPrice: 100,
     competitorPrice: 250,
+    priceTiers: [
+      { label: 'Dogs', price: 150, competitorPrice: 350 },
+      { label: 'Cats', price: 100, competitorPrice: 200 },
+    ],
     icon: 'scissors' as const,
     features: [
       { feature: 'Pre-Surgical Assessment', description: 'A complete health evaluation before surgery to ensure your pet is a safe candidate for the procedure.' },
@@ -191,6 +199,20 @@ export async function seed(payload: Payload) {
   })
   console.log('Seeded clinic info')
 
+  console.log('Seeding menu...')
+  await payload.updateGlobal({
+    slug: 'menu',
+    data: {
+      items: [
+        { label: 'Services', url: '/#services' },
+        { label: 'About', url: '/#about' },
+        { label: 'Pricing', url: '/#pricing' },
+        { label: 'Reviews', url: '/#reviews' },
+      ],
+    },
+  })
+  console.log('Seeded menu')
+
   console.log('Seeding services...')
   const serviceIds = await upsertCollection(payload, 'services', servicesData, 'title')
   console.log(`Seeded ${serviceIds.length} services`)
@@ -220,6 +242,19 @@ export async function seed(payload: Payload) {
         priceBadgeLabel: 'Exams from',
         priceBadgePrice: '$35',
         trustSignalText: '500+ happy pet families',
+        blockSettings: spacing,
+      },
+      {
+        blockType: 'promotion' as const,
+        variant: 'banner' as const,
+        badge: 'Grand Opening Special',
+        heading: '$18 Dog Vaccines',
+        description: 'Protect your pup without breaking the bank. Full dog vaccinations at our grand opening price — limited time only.',
+        price: '$18',
+        priceLabel: 'per vaccine',
+        originalPrice: '$50+',
+        ctaLabel: 'Book Now',
+        footnote: 'Offer ends soon',
         blockSettings: spacing,
       },
       {
@@ -288,7 +323,16 @@ export async function seed(payload: Payload) {
         eyebrow: 'Transparent Pricing',
         heading: 'No surprises. Just fair prices.',
         description: "Here's what you'll actually pay. No hidden fees, no upselling.",
-        services: serviceIds,
+        pricingItems: [
+          { service: serviceIds[0] },
+          { service: serviceIds[1], tierLabel: 'Dogs' },
+          { service: serviceIds[1], tierLabel: 'Cats' },
+          { service: serviceIds[2] },
+          { service: serviceIds[3], tierLabel: 'Dogs' },
+          { service: serviceIds[3], tierLabel: 'Cats' },
+          { service: serviceIds[4] },
+          { service: serviceIds[5] },
+        ],
         blockSettings: spacing,
       },
       {
@@ -296,6 +340,14 @@ export async function seed(payload: Payload) {
         eyebrow: 'Kind Words',
         heading: 'Loved by pets (and their humans).',
         testimonials: testimonialIds,
+        blockSettings: spacing,
+      },
+      {
+        blockType: 'location' as const,
+        eyebrow: 'Our Location',
+        heading: 'Come See Us in {{Tucson}}',
+        description: "We're opening our doors for the very first time this May. Drop by, meet the team, and bring your furry family!",
+        grandOpeningLabel: 'Grand Opening May 2026',
         blockSettings: spacing,
       },
       {

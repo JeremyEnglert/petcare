@@ -30,14 +30,43 @@ export const PricingBlock: Block = {
       label: 'Description',
     },
     {
-      name: 'services',
-      type: 'relationship',
-      label: 'Services',
-      relationTo: 'services',
-      hasMany: true,
+      name: 'pricingItems',
+      type: 'array',
+      label: 'Pricing Items',
       admin: {
-        description: 'Select services to display with their prices',
+        description: 'Each item is one row in the pricing table. Pick a service and optionally a specific tier.',
+        components: {
+          RowLabel: {
+            path: '@/components/relationship-row-label',
+            clientProps: {
+              relationField: 'service',
+              relationTo: 'services',
+              titleField: 'title',
+              fallback: 'Pricing Item',
+            },
+          },
+        },
       },
+      fields: [
+        {
+          name: 'service',
+          type: 'relationship',
+          relationTo: 'services',
+          required: true,
+        },
+        {
+          name: 'tierLabel',
+          type: 'text',
+          label: 'Tier',
+          admin: {
+            components: {
+              Field: {
+                path: '@/components/tier-select#TierSelect',
+              },
+            },
+          },
+        },
+      ],
     },
   ]),
 }

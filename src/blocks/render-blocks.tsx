@@ -8,6 +8,8 @@ import { AboutBlock } from '@/components/about-block'
 import { PricingBlock } from '@/components/pricing-block'
 import { TestimonialsBlock } from '@/components/testimonials-block'
 import { CtaBlock } from '@/components/cta-block'
+import { PromotionBlock } from '@/components/promotion-block'
+import { LocationBlock } from '@/components/location-block'
 import { cn } from '@/lib/utils'
 
 type PageContent = NonNullable<NonNullable<Page['content']>>
@@ -22,6 +24,8 @@ const blockComponents: Partial<Record<PageBlock['blockType'], React.ComponentTyp
   pricing: PricingBlock,
   testimonials: TestimonialsBlock,
   cta: CtaBlock,
+  promotion: PromotionBlock,
+  location: LocationBlock,
 }
 
 const spacingTopClasses: Record<string, string> = {
@@ -41,20 +45,24 @@ const spacingBottomClasses: Record<string, string> = {
 }
 
 type BlockSettings = {
+  anchorId?: string | null
   spacingTop?: string | null
   spacingBottom?: string | null
 }
 
-function getBlockSettingsClasses(block: PageBlock) {
+function getBlockSettings(block: PageBlock) {
   const settings = 'blockSettings' in block
     ? (block.blockSettings as BlockSettings | undefined)
     : undefined
-  if (!settings) return undefined
+  if (!settings) return { className: undefined, anchorId: undefined }
 
   const pt = settings.spacingTop ? spacingTopClasses[settings.spacingTop] : undefined
   const pb = settings.spacingBottom ? spacingBottomClasses[settings.spacingBottom] : undefined
 
-  return cn(pt, pb) || undefined
+  return {
+    className: cn(pt, pb) || undefined,
+    anchorId: settings.anchorId || undefined,
+  }
 }
 
 export async function RenderBlocks({ blocks }: { blocks: PageContent }) {
@@ -63,7 +71,10 @@ export async function RenderBlocks({ blocks }: { blocks: PageContent }) {
   if (!hasBlocks) return null
 
   const hasHero = blocks.some((b) => b.blockType === 'hero')
-  const clinicInfo = hasHero ? await getClinicInfo() : null
+  const hasCtaWithSocial = blocks.some((b) => b.blockType === 'cta' && 'showSocialIcons' in b && b.showSocialIcons)
+  const hasLocation = blocks.some((b) => b.blockType === 'location')
+  const hasPromotion = blocks.some((b) => b.blockType === 'promotion')
+  const clinicInfo = (hasHero || hasCtaWithSocial || hasLocation || hasPromotion) ? await getClinicInfo() : null
 
   return (
     <Fragment>
@@ -74,11 +85,11 @@ export async function RenderBlocks({ blocks }: { blocks: PageContent }) {
           const Block = blockComponents[blockType]
 
           if (Block) {
-            const settingsClasses = getBlockSettingsClasses(block)
-            const extraProps = blockType === 'hero' && clinicInfo ? { clinicInfo } : {}
+            const { className, anchorId } = getBlockSettings(block)
+            const extraProps = (blockType === 'hero' || blockType === 'cta' || blockType === 'location' || blockType === 'promotion') && clinicInfo ? { clinicInfo } : {}
 
             return (
-              <section className={settingsClasses} key={index}>
+              <section id={anchorId} className={className} key={index}>
                 <Block {...(block as React.ComponentProps<typeof Block>)} {...extraProps} />
               </section>
             )

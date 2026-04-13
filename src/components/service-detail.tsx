@@ -21,7 +21,7 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
 
         <div className="relative max-w-7xl mx-auto px-6 pt-12 pb-20 lg:pb-28">
           {/* Breadcrumb */}
-          <nav className="fade-up fade-up-1 flex items-center gap-2 text-seafoam-600/50 text-sm mb-16">
+          <nav className="fade-up fade-up-1 flex items-center gap-2 text-seafoam-600 text-sm mb-16">
             <Link href="/" className="hover:text-seafoam-700 transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5" />
             <Link href="/#services" className="hover:text-seafoam-700 transition-colors">Services</Link>
@@ -40,15 +40,15 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
                 Low Cost {service.title} <span className="text-seafoam-500">in Tucson</span>
               </h1>
 
-              <p className="fade-up fade-up-3 text-lg text-seafoam-800/60 leading-relaxed max-w-xl mb-10">
+              <p className="fade-up fade-up-3 text-lg text-seafoam-700 leading-relaxed max-w-xl mb-10">
                 {service.longDescription || service.description}
               </p>
 
               <div className="fade-up fade-up-4 flex flex-wrap gap-4 mb-12">
-                <a href="/contact" className="btn-pill inline-flex items-center gap-3 bg-seafoam-600 hover:bg-seafoam-700 text-white px-8 py-4 rounded-full text-base font-semibold shadow-xl shadow-seafoam-600/25">
+                <Link href="/contact" className="btn-pill inline-flex items-center gap-3 bg-seafoam-600 hover:bg-seafoam-700 text-white px-8 py-4 rounded-full text-base font-semibold shadow-xl shadow-seafoam-600/25">
                   <Calendar className="w-5 h-5" />
                   Schedule Appointment
-                </a>
+                </Link>
                 <a href="tel:5550123456" className="btn-pill inline-flex items-center gap-3 bg-white hover:bg-seafoam-50 text-seafoam-700 px-8 py-4 rounded-full text-base font-semibold border-2 border-seafoam-200">
                   <Phone className="w-5 h-5" />
                   (555) 012-3456
@@ -56,7 +56,7 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
               </div>
 
               {/* Trust row */}
-              <div className="fade-up fade-up-5 flex flex-wrap items-center gap-6 text-sm text-seafoam-700/60">
+              <div className="fade-up fade-up-5 flex flex-wrap items-center gap-6 text-sm text-seafoam-700">
                 <span className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-seafoam-500" />
                   Tucson
@@ -81,8 +81,24 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
                 </div>
 
                 <p className="text-sm text-seafoam-600 font-medium uppercase tracking-wide mb-2">Starting at</p>
-                <p className="font-display text-6xl text-seafoam-900 mb-2">${service.startingPrice || 35}</p>
-                <p className="text-sm text-seafoam-600/50 mb-8">Affordable pricing — 40% less than the average Tucson vet</p>
+                <p className="font-display text-6xl text-seafoam-900 mb-2">
+                  ${service.priceTiers && service.priceTiers.length > 0
+                    ? Math.min(...service.priceTiers.map((t) => t.price))
+                    : service.startingPrice || 35}
+                </p>
+                <p className="text-sm text-seafoam-600 mb-4">Affordable pricing — 40% less than the average Tucson vet</p>
+
+                {service.priceTiers && service.priceTiers.length > 0 && (
+                  <div className="border-t border-seafoam-100 pt-4 mb-4 space-y-2">
+                    {service.priceTiers.map((tier) => (
+                      <div key={tier.id ?? tier.label} className="flex items-center justify-between text-sm">
+                        <span className="text-seafoam-700">{tier.label}</span>
+                        <span className="border-b border-dotted border-seafoam-200 flex-1 mx-3" />
+                        <span className="font-semibold text-seafoam-800">${tier.price}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <div className="space-y-3 mb-8">
                   {['No hidden fees or surprise charges', 'Transparent, upfront pricing', 'Locally owned — not a corporate chain'].map((text) => (
@@ -93,10 +109,10 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
                   ))}
                 </div>
 
-                <a href="/contact" className="btn-pill w-full inline-flex items-center justify-center gap-2 bg-seafoam-600 hover:bg-seafoam-700 text-white py-4 rounded-full font-semibold shadow-lg shadow-seafoam-600/25 mb-3">
+                <Link href="/contact" className="btn-pill w-full inline-flex items-center justify-center gap-2 bg-seafoam-600 hover:bg-seafoam-700 text-white py-4 rounded-full font-semibold shadow-lg shadow-seafoam-600/25 mb-3">
                   Book This Service
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </Link>
                 <a href="tel:5550123456" className="w-full inline-flex items-center justify-center gap-2 text-seafoam-600 py-3 rounded-full font-medium text-sm hover:text-seafoam-800 transition-colors">
                   <Phone className="w-4 h-4" />
                   Or call (555) 012-3456
@@ -117,7 +133,7 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
                 <h2 className="font-display text-3xl sm:text-4xl text-seafoam-900 leading-tight mb-6">
                   What to expect with your <span className="text-seafoam-500">low cost {service.title.toLowerCase()}</span>
                 </h2>
-                <p className="text-seafoam-700/50 text-sm leading-relaxed">Every {service.title.toLowerCase()} at Pet Care includes a comprehensive set of checks — no cutting corners, no hidden extras.</p>
+                <p className="text-seafoam-600 text-sm leading-relaxed">Every {service.title.toLowerCase()} at Pet Care includes a comprehensive set of checks — no cutting corners, no hidden extras.</p>
               </div>
 
               <div className="lg:col-span-3">
@@ -129,7 +145,7 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
                     <div>
                       <h3 className="text-seafoam-900 font-semibold mb-1">{item.feature}</h3>
                       {item.description && (
-                        <p className="text-seafoam-700/60 text-[15px] leading-relaxed">{item.description}</p>
+                        <p className="text-seafoam-700 text-[15px] leading-relaxed">{item.description}</p>
                       )}
                     </div>
                   </div>
@@ -173,7 +189,7 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
               ].map((stat) => (
                 <div key={stat.label} className="bg-white rounded-2xl p-5 text-center border border-seafoam-100">
                   <p className="font-display text-2xl sm:text-3xl text-seafoam-700 mb-1">{stat.value}</p>
-                  <p className="text-xs sm:text-sm text-seafoam-600/50">{stat.label}</p>
+                  <p className="text-xs sm:text-sm text-seafoam-600">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -199,10 +215,10 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
                     <ServiceIcon icon={s.icon} className="w-6 h-6 text-seafoam-600" />
                   </div>
                   <h3 className="font-display text-xl text-seafoam-900 mb-2">{s.title}</h3>
-                  {s.description && <p className="text-seafoam-700/60 text-sm leading-relaxed mb-4">{s.description}</p>}
-                  {s.startingPrice && (
+                  {s.description && <p className="text-seafoam-700 text-sm leading-relaxed mb-4">{s.description}</p>}
+                  {(s.startingPrice || (s.priceTiers && s.priceTiers.length > 0)) && (
                     <div className="flex items-center justify-between">
-                      <span className="text-gold-600 font-semibold text-sm">From ${s.startingPrice}</span>
+                      <span className="text-gold-600 font-semibold text-sm">From ${s.priceTiers && s.priceTiers.length > 0 ? Math.min(...s.priceTiers.map((t) => t.price)) : s.startingPrice}</span>
                       <span className="inline-flex items-center gap-1 text-seafoam-600 text-sm font-semibold group-hover:gap-2 transition-all">
                         Details <ArrowRight className="w-4 h-4" />
                       </span>
@@ -226,14 +242,14 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-seafoam-900 mb-4">
               Ready to book affordable<br />{service.title.toLowerCase()} in Tucson?
             </h2>
-            <p className="text-seafoam-700/60 text-lg mb-10 max-w-xl mx-auto">
+            <p className="text-seafoam-700 text-lg mb-10 max-w-xl mx-auto">
               Walk-ins are always welcome, or book ahead to guarantee your spot. We can&apos;t wait to meet your furry family member.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="/contact" className="btn-pill inline-flex items-center gap-3 bg-seafoam-600 hover:bg-seafoam-700 text-white px-8 py-4 rounded-full text-base font-semibold shadow-xl shadow-seafoam-600/25">
+              <Link href="/contact" className="btn-pill inline-flex items-center gap-3 bg-seafoam-600 hover:bg-seafoam-700 text-white px-8 py-4 rounded-full text-base font-semibold shadow-xl shadow-seafoam-600/25">
                 Book Appointment
                 <ArrowRight className="w-5 h-5" />
-              </a>
+              </Link>
               <a href="tel:5550123456" className="btn-pill inline-flex items-center gap-3 bg-white hover:bg-cream text-seafoam-700 px-8 py-4 rounded-full text-base font-semibold border-2 border-seafoam-200">
                 Call (555) 012-3456
               </a>

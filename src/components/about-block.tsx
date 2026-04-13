@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { Media } from '@/payload-types'
 
 export type AboutBlockProps = {
@@ -24,41 +25,49 @@ export function AboutBlock({ eyebrow, heading, body, images, stats }: AboutBlock
           <div className="relative">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="bg-seafoam-200 rounded-3xl aspect-square overflow-hidden">
+                <div className="relative bg-seafoam-200 rounded-3xl aspect-square overflow-hidden">
                   {resolvedImages?.[0] && (
-                    <img
+                    <Image
                       src={resolvedImages[0].url ?? ''}
-                      alt={resolvedImages[0].alt}
-                      className="w-full h-full object-cover"
+                      alt={resolvedImages[0].alt ?? ''}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   )}
                 </div>
-                <div className="bg-gold-200 rounded-3xl aspect-[4/3] overflow-hidden">
+                <div className="relative bg-gold-200 rounded-3xl aspect-[4/3] overflow-hidden">
                   {resolvedImages?.[1] && (
-                    <img
+                    <Image
                       src={resolvedImages[1].url ?? ''}
-                      alt={resolvedImages[1].alt}
-                      className="w-full h-full object-cover"
+                      alt={resolvedImages[1].alt ?? ''}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   )}
                 </div>
               </div>
               <div className="pt-8 space-y-4">
-                <div className="bg-seafoam-300 rounded-3xl aspect-[4/3] overflow-hidden">
+                <div className="relative bg-seafoam-300 rounded-3xl aspect-[4/3] overflow-hidden">
                   {resolvedImages?.[2] && (
-                    <img
+                    <Image
                       src={resolvedImages[2].url ?? ''}
-                      alt={resolvedImages[2].alt}
-                      className="w-full h-full object-cover"
+                      alt={resolvedImages[2].alt ?? ''}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   )}
                 </div>
-                <div className="bg-gold-100 rounded-3xl aspect-square overflow-hidden">
+                <div className="relative bg-gold-100 rounded-3xl aspect-square overflow-hidden">
                   {resolvedImages?.[3] && (
-                    <img
+                    <Image
                       src={resolvedImages[3].url ?? ''}
-                      alt={resolvedImages[3].alt}
-                      className="w-full h-full object-cover"
+                      alt={resolvedImages[3].alt ?? ''}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 50vw, 25vw"
                     />
                   )}
                 </div>
@@ -81,7 +90,7 @@ export function AboutBlock({ eyebrow, heading, body, images, stats }: AboutBlock
             )}
 
             {paragraphs.length > 0 && (
-              <div className="space-y-4 text-seafoam-700/70 leading-relaxed">
+              <div className="space-y-4 text-seafoam-700 leading-relaxed">
                 {paragraphs.map((text, i) => (
                   <p key={i}>{text}</p>
                 ))}
@@ -95,7 +104,7 @@ export function AboutBlock({ eyebrow, heading, body, images, stats }: AboutBlock
                     <p className={`font-display text-3xl ${i % 2 === 1 ? 'text-gold-600' : 'text-seafoam-700'}`}>
                       {stat.value}
                     </p>
-                    <p className="text-sm text-seafoam-600/60 mt-1">{stat.label}</p>
+                    <p className="text-sm text-seafoam-600 mt-1">{stat.label}</p>
                   </div>
                 ))}
               </div>

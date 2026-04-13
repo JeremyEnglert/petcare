@@ -66,22 +66,6 @@ export const Services: CollectionConfig = {
               },
             },
             {
-              name: 'startingPrice',
-              type: 'number',
-              label: 'Starting Price',
-              admin: {
-                description: 'Price in dollars (whole number, no $ sign). e.g. 35, 150',
-              },
-            },
-            {
-              name: 'competitorPrice',
-              type: 'number',
-              label: 'Competitor Price',
-              admin: {
-                description: 'Average competitor price in dollars (whole number, no $ sign). e.g. 60, 250',
-              },
-            },
-            {
               name: 'icon',
               type: 'select',
               options: [
@@ -120,6 +104,69 @@ export const Services: CollectionConfig = {
                   name: 'description',
                   type: 'textarea',
                   label: 'Description',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Pricing',
+          fields: [
+            {
+              name: 'startingPrice',
+              type: 'number',
+              label: 'Starting Price',
+              admin: {
+                description: 'Default price in dollars (whole number, no $ sign). Used when no price tiers are set.',
+              },
+            },
+            {
+              name: 'competitorPrice',
+              type: 'number',
+              label: 'Competitor Price',
+              admin: {
+                description: 'Average competitor price in dollars (whole number, no $ sign). e.g. 60, 250',
+              },
+            },
+            {
+              name: 'priceTiers',
+              type: 'array',
+              label: 'Price Tiers',
+              admin: {
+                description: 'Optional per-animal or per-size pricing. When tiers exist, they display instead of the single starting price.',
+                components: {
+                  RowLabel: {
+                    path: '@/components/row-label',
+                    clientProps: {
+                      fieldName: 'label',
+                      fallback: 'Tier',
+                    },
+                  },
+                },
+              },
+              fields: [
+                {
+                  name: 'label',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    description: 'e.g. Dogs, Cats, Small Dogs, Large Dogs',
+                  },
+                },
+                {
+                  name: 'price',
+                  type: 'number',
+                  required: true,
+                  admin: {
+                    description: 'Price in dollars (whole number, no $ sign)',
+                  },
+                },
+                {
+                  name: 'competitorPrice',
+                  type: 'number',
+                  admin: {
+                    description: 'Competitor price for this tier',
+                  },
                 },
               ],
             },
