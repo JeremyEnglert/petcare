@@ -6,6 +6,7 @@ import type { Metadata } from 'next'
 import type { Service } from '@/payload-types'
 import { ServiceDetailContent } from '@/components/service-detail'
 import { siteConfig } from '@/utilities/site-config'
+import { getClinicInfo } from '@/utilities/get-clinic-info'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -75,7 +76,10 @@ export default async function ServicePage({ params }: Args) {
   const service = await queryService(slug)
   if (!service) notFound()
 
-  const otherServices = await queryOtherServices(service.id)
+  const [otherServices, clinicInfo] = await Promise.all([
+    queryOtherServices(service.id),
+    getClinicInfo(),
+  ])
   const features = (service as Service & { features?: { feature: string; description?: string | null; id?: string }[] }).features
 
   // JSON-LD structured data for local business service
@@ -122,6 +126,7 @@ export default async function ServicePage({ params }: Args) {
         service={service}
         features={features || []}
         otherServices={otherServices}
+        clinicInfo={clinicInfo}
       />
     </>
   )

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import type { Service } from '@/payload-types'
+import type { Service, ClinicInfo } from '@/payload-types'
 import { ServiceIcon } from '@/components/service-icons'
 import { Heart, ChevronRight, Calendar, Phone, CircleCheck, ArrowRight, MapPin, Clock, Star } from 'lucide-react'
 
@@ -7,9 +7,16 @@ type Props = {
   service: Service
   features: { feature: string; description?: string | null; id?: string }[]
   otherServices: Service[]
+  clinicInfo: ClinicInfo
 }
 
-export function ServiceDetailContent({ service, features, otherServices }: Props) {
+function formatPhoneForTel(phone: string): string {
+  return 'tel:' + phone.replace(/\D/g, '')
+}
+
+export function ServiceDetailContent({ service, features, otherServices, clinicInfo }: Props) {
+  const bookingUrl = clinicInfo.bookingUrl
+  const phone = clinicInfo.phone
   return (
     <article className="pt-20">
 
@@ -45,14 +52,18 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
               </p>
 
               <div className="fade-up fade-up-4 flex flex-wrap gap-4 mb-12">
-                <Link href="/contact" className="btn-pill inline-flex items-center gap-3 bg-seafoam-600 hover:bg-seafoam-700 text-white px-8 py-4 rounded-full text-base font-semibold shadow-xl shadow-seafoam-600/25">
-                  <Calendar className="w-5 h-5" />
-                  Schedule Appointment
-                </Link>
-                <a href="tel:5550123456" className="btn-pill inline-flex items-center gap-3 bg-white hover:bg-seafoam-50 text-seafoam-700 px-8 py-4 rounded-full text-base font-semibold border-2 border-seafoam-200">
-                  <Phone className="w-5 h-5" />
-                  (555) 012-3456
-                </a>
+                {bookingUrl && (
+                  <a href={bookingUrl} className="btn-pill inline-flex items-center gap-3 bg-seafoam-600 hover:bg-seafoam-700 text-white px-8 py-4 rounded-full text-base font-semibold shadow-xl shadow-seafoam-600/25">
+                    <Calendar className="w-5 h-5" />
+                    Schedule Appointment
+                  </a>
+                )}
+                {phone && (
+                  <a href={formatPhoneForTel(phone)} className="btn-pill inline-flex items-center gap-3 bg-white hover:bg-seafoam-50 text-seafoam-700 px-8 py-4 rounded-full text-base font-semibold border-2 border-seafoam-200">
+                    <Phone className="w-5 h-5" />
+                    {phone}
+                  </a>
+                )}
               </div>
 
               {/* Trust row */}
@@ -109,14 +120,18 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
                   ))}
                 </div>
 
-                <Link href="/contact" className="btn-pill w-full inline-flex items-center justify-center gap-2 bg-seafoam-600 hover:bg-seafoam-700 text-white py-4 rounded-full font-semibold shadow-lg shadow-seafoam-600/25 mb-3">
-                  Book This Service
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <a href="tel:5550123456" className="w-full inline-flex items-center justify-center gap-2 text-seafoam-600 py-3 rounded-full font-medium text-sm hover:text-seafoam-800 transition-colors">
-                  <Phone className="w-4 h-4" />
-                  Or call (555) 012-3456
-                </a>
+                {bookingUrl && (
+                  <a href={bookingUrl} className="btn-pill w-full inline-flex items-center justify-center gap-2 bg-seafoam-600 hover:bg-seafoam-700 text-white py-4 rounded-full font-semibold shadow-lg shadow-seafoam-600/25 mb-3">
+                    Book This Service
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                )}
+                {phone && (
+                  <a href={formatPhoneForTel(phone)} className="w-full inline-flex items-center justify-center gap-2 text-seafoam-600 py-3 rounded-full font-medium text-sm hover:text-seafoam-800 transition-colors">
+                    <Phone className="w-4 h-4" />
+                    Or call {phone}
+                  </a>
+                )}
               </div>
             </div>
           </div>
@@ -246,13 +261,17 @@ export function ServiceDetailContent({ service, features, otherServices }: Props
               Walk-ins are always welcome, or book ahead to guarantee your spot. We can&apos;t wait to meet your furry family member.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/contact" className="btn-pill inline-flex items-center gap-3 bg-seafoam-600 hover:bg-seafoam-700 text-white px-8 py-4 rounded-full text-base font-semibold shadow-xl shadow-seafoam-600/25">
-                Book Appointment
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <a href="tel:5550123456" className="btn-pill inline-flex items-center gap-3 bg-white hover:bg-cream text-seafoam-700 px-8 py-4 rounded-full text-base font-semibold border-2 border-seafoam-200">
-                Call (555) 012-3456
-              </a>
+              {bookingUrl && (
+                <a href={bookingUrl} className="btn-pill inline-flex items-center gap-3 bg-seafoam-600 hover:bg-seafoam-700 text-white px-8 py-4 rounded-full text-base font-semibold shadow-xl shadow-seafoam-600/25">
+                  Book Appointment
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+              )}
+              {phone && (
+                <a href={formatPhoneForTel(phone)} className="btn-pill inline-flex items-center gap-3 bg-white hover:bg-cream text-seafoam-700 px-8 py-4 rounded-full text-base font-semibold border-2 border-seafoam-200">
+                  Call {phone}
+                </a>
+              )}
             </div>
           </div>
         </div>

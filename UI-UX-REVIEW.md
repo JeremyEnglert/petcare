@@ -23,9 +23,9 @@
 
 ## HIGH (Priority 3-5)
 
-- [ ] **6. Hardcoded phone number in service detail** — `service-detail.tsx` lines 52, 116, 117, 253 hardcode `(555) 012-3456` instead of pulling from `clinicInfo`. Component doesn't accept `clinicInfo` as a prop.
+- [x] **6. Hardcoded phone number in service detail** — `service-detail.tsx` lines 52, 116, 117, 253 hardcode `(555) 012-3456` instead of pulling from `clinicInfo`. Component doesn't accept `clinicInfo` as a prop.
 
-- [ ] **7. Hardcoded `/contact` links in service detail** — `service-detail.tsx` lines 48, 112, 249 use `/contact` instead of the CMS `bookingUrl`.
+- [x] **7. Hardcoded `/contact` links in service detail** — `service-detail.tsx` lines 48, 112, 249 use `/contact` instead of the CMS `bookingUrl`.
 
 - [x] **8. No `<main>` landmark or `id="main-content"`** — Already present in `layout.tsx`.
 
@@ -33,7 +33,7 @@
 
 - [ ] **10. Service marquee has no pause mechanism** — Infinite CSS animation with no hover-pause or pause button. Violates WCAG 2.2.2 (Pause, Stop, Hide). Add `animation-play-state: paused` on hover and a pause button.
 
-- [ ] **11. Menu items use `<a>` instead of Next.js `<Link>`** — `header.tsx` lines 33 and 89-97 use raw `<a>` for internal navigation, causing full page reloads instead of client-side routing.
+- [x] **11. Menu items use `<a>` instead of Next.js `<Link>`** — `header.tsx` lines 33 and 89-97 use raw `<a>` for internal navigation, causing full page reloads instead of client-side routing.
 
 - [ ] **12. About block doesn't handle missing images** — `about-block.tsx:27-65` renders empty colored boxes with no fallback content when images aren't uploaded.
 
@@ -41,7 +41,7 @@
 
 ## MEDIUM (Priority 6-8)
 
-- [ ] **13. No favicon or web manifest** — Site config references `/og-image.png` but no favicon, apple-touch-icon, or web manifest for PWA/bookmarking.
+- [x] **13. No favicon or web manifest** — Already has `icon.svg` and `apple-icon.png` via Next.js file convention. Not an issue.
 
 - [ ] **14. About stats grid breaks on 4 items** — `about-block.tsx:92` uses `grid-cols-3` but supports up to 4 stats. 4th item wraps to new row unbalanced. Fix: `grid-cols-2 sm:grid-cols-4` or limit to 3.
 

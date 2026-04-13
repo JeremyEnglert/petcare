@@ -36,13 +36,13 @@ export default function Header({
 
         <div className="hidden md:flex items-center gap-8">
           {menuItems?.map((item) => (
-            <a
+            <Link
               key={item.id}
               href={item.url}
               className="text-sm font-medium text-seafoam-800/70 hover:text-seafoam-700 transition-colors"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
           {bookingUrl ? (
             <a
@@ -93,14 +93,14 @@ export default function Header({
               <nav className="flex-1 overflow-y-auto px-6">
                 <div className="flex flex-col space-y-1">
                   {menuItems?.map((item) => (
-                    <a
+                    <Link
                       key={item.id}
                       href={item.url}
                       className="py-3 text-base font-medium text-seafoam-800 hover:text-seafoam-600 transition-colors"
                       onClick={() => setOpen(false)}
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   ))}
                 </div>
                 <div className="mt-6 pt-6 border-t border-seafoam-100">
