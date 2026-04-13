@@ -61,7 +61,7 @@
 
 - [ ] **20. Add sticky mobile CTA on service pages** — Long scrolling content with no fixed booking bar. A sticky bottom "Book Now" + phone button on mobile would improve conversion.
 
-- [ ] **21. Add LocalBusiness JSON-LD structured data** — `LocalBusiness` / `VeterinaryService` schema markup for local SEO and Google rich results (hours, pricing, reviews).
+- [x] **21. Add LocalBusiness JSON-LD structured data** — `LocalBusiness` / `VeterinaryService` schema markup for local SEO and Google rich results (hours, pricing, reviews).
 
 - [ ] **22. Link testimonials to Google/Yelp source** — Showing review platform badges increases trust for local service businesses.
 

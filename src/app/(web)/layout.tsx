@@ -44,6 +44,46 @@ export default async function RootLayout({
       <body
         className={`${dmSerifDisplay.variable} ${outfit.variable} antialiased bg-cream text-bark overflow-x-hidden`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'VeterinaryCare',
+              name: siteConfig.name,
+              description: siteConfig.description,
+              url: siteConfig.url,
+              telephone: clinicInfo.phone || undefined,
+              email: clinicInfo.email || undefined,
+              ...(clinicInfo.address?.street && {
+                address: {
+                  '@type': 'PostalAddress',
+                  streetAddress: clinicInfo.address.street,
+                  addressLocality: clinicInfo.address.city || undefined,
+                  addressRegion: clinicInfo.address.state || undefined,
+                  postalCode: clinicInfo.address.zip || undefined,
+                  addressCountry: 'US',
+                },
+              }),
+              ...(clinicInfo.hours && clinicInfo.hours.length > 0 && {
+                openingHoursSpecification: clinicInfo.hours.map((entry) => ({
+                  '@type': 'OpeningHoursSpecification',
+                  dayOfWeek: entry.days,
+                  opens: entry.hours,
+                })),
+              }),
+              ...(clinicInfo.socialMedia && {
+                sameAs: [
+                  clinicInfo.socialMedia.facebook,
+                  clinicInfo.socialMedia.instagram,
+                  clinicInfo.socialMedia.tiktok,
+                ].filter(Boolean),
+              }),
+              priceRange: '$$',
+              image: `${siteConfig.url}/opengraph-image`,
+            }),
+          }}
+        />
         <LivePreviewListener />
         <Header bookingUrl={clinicInfo.bookingUrl} menuItems={menu.items} />
         <main id="main-content">{children}</main>
