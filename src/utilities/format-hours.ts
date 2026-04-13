@@ -40,8 +40,8 @@ export function getDisplayHours(hours: ClinicInfo['hours']): { days: string; hou
     return day?.closed ? 'Closed' : (day?.open && day?.close ? `${formatTime(day.open)} – ${formatTime(day.close)}` : '')
   }
 
-  const weekdays = DAY_KEYS.slice(0, 5).map((key, i) => ({
-    days: DAY_LABELS[i],
+  const weekdays: { days: string; hours: string }[] = DAY_KEYS.slice(0, 5).map((key, i) => ({
+    days: DAY_LABELS[i] as string,
     hours: formatDay(key),
   })).filter((entry) => entry.hours !== '')
 
