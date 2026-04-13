@@ -43,7 +43,7 @@
 
 - [x] **13. No favicon or web manifest** — Already has `icon.svg` and `apple-icon.png` via Next.js file convention. Not an issue.
 
-- [ ] **14. About stats grid breaks on 4 items** — `about-block.tsx:92` uses `grid-cols-3` but supports up to 4 stats. 4th item wraps to new row unbalanced. Fix: `grid-cols-2 sm:grid-cols-4` or limit to 3.
+- [x] **14. About stats grid breaks on 4 items** — `about-block.tsx:92` uses `grid-cols-3` but supports up to 4 stats. 4th item wraps to new row unbalanced. Fix: `grid-cols-2 sm:grid-cols-4` or limit to 3.
 
 - [ ] **15. Star ratings not announced to screen readers** — `testimonials-block.tsx:38-44` star icons have no `aria-label`. Add `role="img" aria-label="X out of 5 stars"` on the container.
 

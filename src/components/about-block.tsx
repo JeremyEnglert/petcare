@@ -99,7 +99,7 @@ export function AboutBlock({ eyebrow, heading, body, images, stats }: AboutBlock
 
             {stats && stats.length > 0 && (
               <div className="grid grid-cols-3 gap-8 mt-10 pt-8 border-t border-seafoam-200">
-                {stats.map((stat, i) => (
+                {stats.slice(0, 3).map((stat, i) => (
                   <div key={stat.id ?? i}>
                     <p className={`font-display text-3xl ${i % 2 === 1 ? 'text-gold-600' : 'text-seafoam-700'}`}>
                       {stat.value}

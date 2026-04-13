@@ -47,7 +47,7 @@ export const AboutBlock: Block = {
       name: 'stats',
       type: 'array',
       label: 'Stats',
-      maxRows: 4,
+      maxRows: 3,
       admin: {
         components: {
           RowLabel: {
